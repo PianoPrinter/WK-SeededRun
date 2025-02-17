@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net3.5</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Mono.Cecil">
+      <HintPath>lib/Mono.Cecil.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
