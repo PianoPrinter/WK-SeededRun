@@ -39,6 +39,8 @@ public class Plugin : BaseUnityPlugin
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name.Equals("Main-Menu")) AddSeededRunToggle();
+
+        if (scene.name.Equals("Game-Main") && IsSeeded()) AddSeedModIndicator();
     }
 
     private void AddSeededRunToggle()
@@ -54,6 +56,25 @@ public class Plugin : BaseUnityPlugin
 
         var seededToggleLabel = seededToggle.transform.Find("Background/Label (1)");
         seededToggleLabel.GetComponent<TextMeshProUGUI>().SetText("Seeded Run\n(Top Left Input)");
+    }
+
+    private void AddSeedModIndicator()
+    {
+        var gMan = GameObject.Find("GameManager");
+        var gameUI = gMan.transform.Find("Canvas/Game UI");
+        var timer = gameUI.Find("Timer");
+
+        var indicator = Instantiate(timer.gameObject, gameUI);
+        indicator.SetActive(true);
+        indicator.transform.SetSiblingIndex(1);
+        indicator.name = "Seed Mod Indicator";
+        indicator.GetComponent<TextMeshProUGUI>().text = "Seeded Run Active";
+
+        var rectTransform = indicator.GetComponent<RectTransform>();
+        rectTransform.anchorMax = new Vector2(rectTransform.anchorMax.x, 0.0f);
+        var localPos = indicator.transform.localPosition;
+        localPos.y = 40f;
+        indicator.transform.localPosition = localPos;
     }
 
     public class MyPatches
